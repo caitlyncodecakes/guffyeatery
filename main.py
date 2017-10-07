@@ -1,12 +1,19 @@
+try:
+    import pygame_sdl2
+    pygame_sdl2.import_as_pygame()
+except ImportError:
+    pass
+
+
 import pygame
 pygame.init()
 pygame.mixer.init()
 testmode = False
 
-FPS = 100
+FPS = 60
 clock = pygame.time.Clock()
-SCREENWIDTH = 800
-SCREENHEIGHT = 600
+SCREENWIDTH = 1280
+SCREENHEIGHT = 720
 size = (SCREENWIDTH, SCREENHEIGHT)
 screen = pygame.display.set_mode(size)
 
@@ -19,13 +26,13 @@ yellow = (255, 252, 197)
 white = (255, 255, 255)
 
 rightarrow = pygame.image.load('img/arrows/right.png')
-rightarrow_rect = pygame.Rect(680, 400, 100, 55)
+rightarrow_rect = pygame.Rect(SCREENWIDTH-120, SCREENHEIGHT-200, 100, 55)
 larrow = pygame.image.load('img/arrows/left.png')
-larrow_rect = pygame.Rect(500, 400, 100, 55)
+larrow_rect = pygame.Rect(SCREENWIDTH-300, SCREENHEIGHT-200, 100, 55)
 uarrow = pygame.image.load('img/arrows/up.png')
-uarrow_rect = pygame.Rect(610, 300, 55, 100)
+uarrow_rect = pygame.Rect(SCREENWIDTH-190, SCREENHEIGHT-300, 55, 100)
 darrow = pygame.image.load('img/arrows/down.png')
-darrow_rect = pygame.Rect(610, 475, 55, 100)
+darrow_rect = pygame.Rect(SCREENWIDTH-190, SCREENHEIGHT-125, 55, 100)
 
 guffy = pygame.image.load("img/giraffe.png")
 guffyrect = pygame.Rect(100, 100, 64, 64)
@@ -178,13 +185,13 @@ while gameon:
         if direction == 'down':
             guffyrect.centery = guffyrect.centery + speed
 
-        if guffyrect.right > 800:
+        if guffyrect.right > SCREENWIDTH:
             direction = "left"
         if guffyrect.left < 0:
             direction = "right"
         if guffyrect.top < 0:
             direction = "down"
-        if guffyrect.bottom > 600:
+        if guffyrect.bottom > SCREENHEIGHT:
             direction = "up"
 
         if not testmode:
@@ -263,13 +270,13 @@ while gameon:
         if direction == "down":
             pufferrect.centery = pufferrect.centery + speed
 
-        if pufferrect.right > 800:
+        if pufferrect.right > SCREENWIDTH:
             direction = "left"
         if pufferrect.left < 0:
             direction = "right"
         if pufferrect.top < 0:
             direction = "down"
-        if pufferrect.bottom > 600:
+        if pufferrect.bottom > SCREENHEIGHT:
             direction = "up"
 
         if not testmode:
