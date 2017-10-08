@@ -20,6 +20,8 @@ screen = pygame.display.set_mode(size)
 
 
 blue = (127, 255, 212)
+darkblue = (38, 96, 164)
+lightblue = (237, 247, 246)
 purple = (180, 182, 227)
 pink = (255, 103, 180)
 yellow = (255, 252, 197)
@@ -80,8 +82,16 @@ friendnumstart = 2
 friendnum = friendnumstart
 
 cupcake = pygame.image.load("img/cupcake.png")
-cupcakerect = pygame.Rect(400, 173, 64, 64)
+cupcakerect = pygame.Rect(400, 80, 64, 64)
 
+icecream = pygame.image.load("img/ice-cream.png")
+icecreamrect = pygame.Rect(650, 470, 64, 64)
+
+donut = pygame.image.load("img/donut.png")
+donutrect = pygame.Rect(201, 497, 64, 64)
+
+popsicle = pygame.image.load("img/popsicle.png")
+popsiclerect = pygame.Rect(750, 80, 64, 64)
 seaweed = pygame.image.load('img/seaweed.png')
 seaweedrect = pygame.Rect(301, 83, 64, 72)
 
@@ -91,15 +101,15 @@ aww = pygame.mixer.Sound("snd/aww.wav")
 eating = pygame.mixer.Sound("snd/eating.wav")
 cheering = pygame.mixer.Sound("snd/cheershort.wav")
 
-fonts = pygame.font.Font("font/animeace2_ital.ttf", 30)
-winningFont = pygame.font.Font("font/animeace2_bld.ttf", 72)
+fonts = pygame.font.Font("font/animeace2_ital.ttf", 60)
+winningFont = pygame.font.Font("font/animeace2_bld.ttf", 82)
 playagainsurface = fonts.render("Play Again", False, blue)
-playagainrect = playagainsurface.get_rect(left=350, top=375)
+playagainrect = playagainsurface.get_rect(left=500, top=475)
 
 winsurface = winningFont.render("You Won!", False, blue)
 
 quitsurface = fonts.render("Quit", False, blue)
-quitrect = quitsurface.get_rect(left=370, top=425)
+quitrect = quitsurface.get_rect(left=520, top=325)
 speed = 4
 lspeed = 1
 sspeed = 1
@@ -171,6 +181,9 @@ while gameon:
         screen.blit(uarrow, uarrow_rect)
         screen.blit(darrow, darrow_rect)
         screen.blit(cupcake, cupcakerect)
+        screen.blit(icecream, icecreamrect)
+        screen.blit(popsicle, popsiclerect)
+        screen.blit(donut, donutrect)
         screen.blit(guffy, guffyrect)
         screen.blit(leo, leorect)
         
@@ -224,13 +237,16 @@ while gameon:
 
         if guffyrect.colliderect(cupcakerect):
             speed = 2
+        
+        if guffyrect.colliderect(icecreamrect):
+            speed = 2
 
         # go to game over screen
         if guffyrect.colliderect(leorect) and level == 1:
             screen.fill(pink)
             aww.play()
             gameoversurface = winningFont.render("Game Over", False, white)
-            screen.blit(gameoversurface, (200, 102))
+            screen.blit(gameoversurface, (400, 102))
             screen.blit(playagainsurface, playagainrect)
             screen.blit(quitsurface, quitrect)
             music.stop()
@@ -295,8 +311,8 @@ while gameon:
             screen.fill(pink)
             aww.play()
             cheering.stop()
-            gameoversurface = fonts.render("Game Over", False, white)
-            screen.blit(gameoversurface, (350, 302))
+            gameoversurface = winningFont.render("Game Over", False, white)
+            screen.blit(gameoversurface, (400, 102))
             screen.blit(playagainsurface, playagainrect)
             screen.blit(quitsurface, quitrect)
             music2.stop()
@@ -328,8 +344,8 @@ while gameon:
 
         print("friendnum = ", friendnum)
         if friendnum <= 0:
-            screen.fill(yellow)
-            screen.blit(winsurface, (200, 100))
+            screen.fill(darkblue)
+            screen.blit(winsurface, (350, 100))
             screen.blit(playagainsurface, playagainrect)
             screen.blit(quitsurface, quitrect)
             sspeed = 0
