@@ -9,7 +9,6 @@ import pygame
 pygame.init()
 pygame.mixer.init()
 testmode = False
-
 FPS = 60
 clock = pygame.time.Clock()
 SCREENWIDTH = 1280
@@ -88,12 +87,13 @@ icecream = pygame.image.load("img/ice-cream.png")
 icecreamrect = pygame.Rect(650, 470, 64, 64)
 
 donut = pygame.image.load("img/donut.png")
-donutrect = pygame.Rect(201, 497, 64, 64)
+donutrect = pygame.Rect(175, 497, 64, 64)
 
 popsicle = pygame.image.load("img/popsicle.png")
 popsiclerect = pygame.Rect(750, 80, 64, 64)
 seaweed = pygame.image.load('img/seaweed.png')
 seaweedrect = pygame.Rect(301, 83, 64, 72)
+seaweedrect3 = pygame.Rect(600, 200, 64, 64)
 
 music = pygame.mixer.Sound('snd/clappy.wav')
 music2 = pygame.mixer.Sound("snd/fun.wav")
@@ -240,6 +240,12 @@ while gameon:
         
         if guffyrect.colliderect(icecreamrect):
             speed = 2
+        
+        if guffyrect.colliderect(popsiclerect):
+            speed = 2
+        
+        if guffyrect.colliderect(donutrect):
+            speed = 2
 
         # go to game over screen
         if guffyrect.colliderect(leorect) and level == 1:
@@ -261,16 +267,17 @@ while gameon:
     if level == 2:
         "Print I'm at level 2"
         screen.fill(purple)
+        screen.blit(rightarrow, rightarrow_rect)
+        screen.blit(larrow, larrow_rect)
+        screen.blit(uarrow, uarrow_rect)
+        screen.blit(darrow, darrow_rect)
         screen.blit(sofa, sofarect)
         screen.blit(puffer, pufferrect)
         screen.blit(manta, mantarect)
         screen.blit(squid, squidrect)
         screen.blit(shark, sharkrect)
         screen.blit(seaweed, seaweedrect)
-        screen.blit(rightarrow, rightarrow_rect)
-        screen.blit(larrow, larrow_rect)
-        screen.blit(uarrow, uarrow_rect)
-        screen.blit(darrow, darrow_rect)
+        screen.blit(seaweed, seaweedrect3)
         screen.blit(seaweed, seaweedrect2)
         
     
@@ -324,8 +331,12 @@ while gameon:
         if pufferrect.colliderect(seaweedrect2):
             speed = 1
 
+        if pufferrect.colliderect(seaweedrect3):
+            speed = 1
+
         if pufferrect.colliderect(squidrect):
-            cheering.play()
+            if not squidrect.colliderect(sofarect):
+                cheering.play()
             squidrect.centerx = 209
             squidrect.centery = 500
             if not squidOnCouch:
@@ -334,7 +345,8 @@ while gameon:
             squidOnCouch = True
 
         if pufferrect.colliderect(mantarect):
-            cheering.play()
+            if not mantarect.colliderect(sofarect):
+                cheering.play()
             mantarect.centerx = 275
             mantarect.centery = 500
             if not mantaOnCouch:
